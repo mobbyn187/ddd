@@ -12,10 +12,16 @@ public class EquipmentUsage {
         this.equipment = equipment;
         this.date = date;
     }
-
+    // skoro pobieramy EquipmentUsage już z konkretnego trainer.getEquipmentUsages(),
+    // ponowne sprawdzanie trenera wydaje się redundantne.
+    // Można uprościć tę metodę do sprawdzania sprzętu.
     public boolean wasUsed(Trainer trainer, Equipment equipment) {
         return this.trainer == trainer && this.equipment == equipment;
     }
+
+    // Jeżeli chodzi o settery poniżej - EquipmentUsage reprezentuje historyczne zdarzenie - kto, czego i kiedy użył.
+    // Czy powinno być możliwe zmienienie tych danych po utworzeniu obiektu?
+    // Można rozważyć niemutowalny EquipmentUsage
 
     public Trainer getTrainer() {
         return trainer;

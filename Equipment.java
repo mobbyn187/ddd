@@ -2,6 +2,9 @@ package course.java.pl.oop.trainer.animal;
 
 public class Equipment {
     private String name;
+    // wearLevel ma zamknięty zestaw wartości (new, used, terrible)
+    // Może warto użyć enum zamiast String, żeby nie można było utworzyć sprzętu
+    // z dowolną/niepoprawną wartością?
     private String wearLevel;
     private int repairCount;
 
