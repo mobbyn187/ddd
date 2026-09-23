@@ -48,6 +48,7 @@ public class TrainerService {
         equipments.remove(equipment);
     }
 
+    //lepsza nazwa findTrainerWithMostAnimals - obecna nie do konca wskazuje ze metoda zwraca trenera
     public static Trainer findTheMostCountOfAnimals(List<Trainer> trainers) {
 
         if (trainers == null || trainers.isEmpty()) {
@@ -64,6 +65,9 @@ public class TrainerService {
         return result;
     }
 
+    /* czy equipment powinien byc parametrem tej metody? z tresci rozumiem, ze mamy znalezc trenera z najwieksza liczba
+       sprzetu ogolnie, natomiast obecna implementacja znajduje trenera, ktory najczesciej uzywal konkretnego sprzetu
+     */
     public static Trainer findTrainerWhoUseTheMostOftenEquipment(Equipment equipment, List<Trainer> trainers) {
 
         if (trainers == null || trainers.isEmpty()) {
@@ -90,6 +94,10 @@ public class TrainerService {
         return result;
     }
 
+    // Z treści zadania wynika, że szukamy trenerów, którzy trenowali psy z gatunku spaniel.
+    // Tutaj sprawdzamy jedynie wartość species, więc teoretycznie również inny typ zwierzęcia
+    // z species = "spaniel" zostałby uwzględniony. Warto wykorzystać istniejący model klas i dodatkowo upewnić się,
+    // że sprawdzane zwierzę jest psem:)
     public static List<Trainer> findTrainersWhoTrainedProvidedSpecies1(List<Trainer> trainers, String species) {
 
         if (trainers == null || trainers.isEmpty()) {
@@ -132,6 +140,13 @@ public class TrainerService {
         return result;
     }
 
+    // Tutaj sprawdzamy tylko, czy pterodaktyl aktualnie nie ma przypisanego trenera,
+    // natomiast z treści zadania wynika, że powinniśmy znaleźć takie, które nigdy wcześniej nie miały trenera.
+    // W obecnym rozwiązaniu, jeśli najpierw przypiszemy zwierzę do trenera, a później je usuniemy, trainer ponownie będzie null
+    // i takie zwierzę zostanie błędnie zwrócone przez tę metodę.
+    // Wydaje mi się, że warto rozszerzyć model Animal o informację pozwalającą określić, czy zwierzę kiedykolwiek miało przypisanego trenera (ewentualnie przechowywać historię takich przypisań).
+    // Ta informacja powinna być aktualizowana w momencie przypisywania trenera. Wtedy tutaj moglibyśmy sprawdzać nie tylko aktualnego trainer, ale rzeczywiście warunek „nigdy nie miał trenera”.
+    // Dodatkowo, skoro mamy osobną klasę Pterodactile, można wykorzystać typ zwierzęcia zamiast przekazywać jego gatunek jako String
     public static List<Animal> returnAnimalsWhichDoesNotHasATrainer(List<Animal> animals, String species) {
 
         if (animals == null || animals.isEmpty()) {

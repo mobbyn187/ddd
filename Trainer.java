@@ -28,6 +28,10 @@ public class Trainer {
         animal.setTrainer(this);
     }
 
+    //Sprawdzamy tutaj tylko, czy zwierzę ma przypisanego jakiegokolwiek trenera.
+    // Czy nie powinniśmy dodatkowo sprawdzić, czy animal.getTrainer() == this?
+    // W obecnej implementacji jeden trener może wywołać removeAnimal() dla
+    // zwierzęcia należącego do innego trenera i ustawić mu trainer = null
     public void removeAnimal(Animal animal) {
         if (animal.getTrainer() == null) {
             throw new IllegalArgumentException("this animal doesn't belong to a trainer!");
@@ -36,11 +40,15 @@ public class Trainer {
         animal.setTrainer(null);
     }
 
+    // Może warto zwalidować equipment przed utworzeniem EquipmentUsage?
+    // Obecnie useEquipment(null) utworzy wpis historii bez sprzętu
     public void useEquipment(Equipment equipment) {
         EquipmentUsage usage = new EquipmentUsage(this, equipment, LocalDate.now());
         equipmentUsages.add(usage);
     }
-
+    // Czy to jest potrzebne, skoro mamy useEquipment()?
+    // Pozwala obecnie dodać trenerowi EquipmentUsage wskazujące na innego trenera,
+    // więc kolekcja może stać się niespójna
     public void addEquipmentUsage(EquipmentUsage usage) {
         equipmentUsages.add(usage);
     }
